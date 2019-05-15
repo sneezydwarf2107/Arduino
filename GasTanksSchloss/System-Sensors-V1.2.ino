@@ -40,95 +40,94 @@ void keypadtolcd(char Key){
     case '0':
       return;
     break;
-    
+
     case '1':
       lcd.setCursor(9,1);
       lcd.print(1);
-    
+
       delay(500);
       readsensor(Key);
     break;
-    
+
     case '2':
       lcd.setCursor(9,1);
       lcd.print(2);
-  
+
       delay(500);
       readsensor(Key);
     break;
-    
+
     case '3':
       lcd.setCursor(9,1);
       lcd.print(3);
-  
+
       delay(500);
       readsensor(Key);
     break;
-    
+
     case '4':
       lcd.setCursor(9,1);
       lcd.print(4);
-  
+
       delay(500);
       readsensor(Key);
     break;
-    
+
     case '5':
       return;
     break;
-    
+
     case '6':
       return;
     break;
-    
+
     case '7':
       return;
     break;
-    
+
     case '8':
+      lcd.setCursor(9,1);
+      lcd.print("8");
 
-    lcd.setCursor(9,1);
-    lcd.print("8");
-
-    delay(500);
-    lcd.clear();
-    read_eeprom();
+      delay(500);
+      lcd.clear();
+      read_eeprom();
     return;
     break;
-    
+
     case '9':
-    lcd.setCursor(9,1);
-    lcd.print("9!");
-    delay(500);
-    lcd.clear();
-    eeprom_up();
+      lcd.setCursor(9,1);
+      lcd.print("9!");
+      delay(500);
+      lcd.clear();
+      eeprom_up();
     return;
     break;
-    
+
     case 'A':
       return;
     break;
-    
+
     case 'B':
       return;
     break;
-    
+
     case 'C':
       return;
     break;
-    
+
     case 'D':
       lcd.setCursor(9,1);
       lcd.print("D");
-  
+
       delay(500);
       readsensor(Key);
     break;
-    
+
     case '*':
       return;
     break;
-    
+
     case '#':
       return;
     break;
@@ -139,7 +138,7 @@ void readsensor(char Key){
   long distance;
   switch(Key){
     case '0':
-      
+
     break;
 
     case '1':
@@ -163,7 +162,7 @@ void readsensor(char Key){
       distance = distance - 8;
       calcandprint2(distance,Key);
     break;
-  
+
     case '3':
       lcd.clear();
       sr04 = SR04(EchoSensor3,TriggerSensor3);
@@ -174,7 +173,7 @@ void readsensor(char Key){
       distance = distance - 8;
       calcandprint2(distance, Key);
     break;
-   
+
     case '4':
       lcd.clear();
       sr04 = SR04(EchoSensor4,TriggerSensor4);
@@ -185,31 +184,31 @@ void readsensor(char Key){
       distance = distance - 8;
       calcandprint2(distance, Key);
     break;
-  
+
     case '5':
     break;
-  
+
     case '6':
     break;
-   
+
     case '7':
     break;
-  
+
     case '8':
     break;
-  
+
     case '9':
     break;
-  
+
     case 'A':
     break;
-  
+
     case 'B':
     break;
-  
+
     case 'C':
     break;
-  
+
     case 'D':
       lcd.clear();
       sr04 = SR04(EchoSensor5,TriggerSensor5);
@@ -219,10 +218,10 @@ void readsensor(char Key){
       //Serial.print("cm");
       calcandprint1(distance, Key);
     break;
-  
+
     case '*':
     break;
-  
+
     case '#':
     break;
   }
@@ -237,11 +236,11 @@ void calcandprint1(long distance, char Key){
   double percent = 0;
   long left2 = 0;
   char secondKey = Key;
-  
+
   left = ((((200 - distance)*300)*208)/1000);
   percent = (left/gesamt)*100;
   left2 = (long)left;
-  
+
   lcd.clear();
   lcd.print("--> ");
   lcd.print(left2);
@@ -253,12 +252,12 @@ void calcandprint1(long distance, char Key){
   lcd.print(" ");
   lcd.print("%");
 
-  //start timesensetiev while loop 
+  //start timesensetiev while loop
   time_since_last_reset = millis();
   while((millis() - time_since_last_reset) < max_wait && secondKey != 'A'){
 
     secondKey = customKeypad.getKey();
-  
+
   }
   lcd.clear();
 }
@@ -272,11 +271,11 @@ void calcandprint2(long distance, char Key){
   double percent = 0;
   long left2 = 0;
   char secondKey = Key;
-  
+
   left = ((((200 - distance)*600)*208)/1000);
   percent = (left/gesamt)*100;
   left2 = (long)left;
-  
+
   lcd.clear();
   lcd.print("--> ");
   lcd.print(left2);
@@ -288,12 +287,12 @@ void calcandprint2(long distance, char Key){
   lcd.print(" ");
   lcd.print("%");
 
-  //start timesensetiev while loop 
+  //start timesensetiev while loop
   time_since_last_reset = millis();
   while((millis() - time_since_last_reset) < max_wait && secondKey != 'A'){
 
     secondKey = customKeypad.getKey();
-  
+
   }
   lcd.clear();
 }
@@ -309,9 +308,9 @@ void eeprom_up(){
   bool running = true;
   while(running){
     char Key = customKeypad.getKey();
-    
+
     if (Key){
-  
+
       switch(Key){
         case 'A':
           lcd.clear();
@@ -322,7 +321,7 @@ void eeprom_up(){
           delay(2000);
           lcd.clear();
         break;
-        
+
         case '1':
           lcd.setCursor(9,1);
           lcd.print(Key);
@@ -334,7 +333,7 @@ void eeprom_up(){
           Key = '7';
           running = false;
         break;
-        
+
         case '2':
           lcd.setCursor(9,1);
           lcd.print(Key);
@@ -346,7 +345,7 @@ void eeprom_up(){
           Key = '7';
           running = false;
         break;
-        
+
         case '3':
           lcd.setCursor(9,1);
           lcd.print(Key);
@@ -358,7 +357,7 @@ void eeprom_up(){
           Key = '7';
           running = false;
         break;
-        
+
         case '4':
           lcd.setCursor(9,1);
           lcd.print(Key);
@@ -387,7 +386,7 @@ void eeprom_up(){
 void read_eeprom(){
 
   int tank_nummer = EEPROM.read(0);
-  
+
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("Entnahme aus");
@@ -400,7 +399,7 @@ void read_eeprom(){
 
 void setup() {
 
-  //Deklaration pinMode Echo Pins to Input 
+  //Deklaration pinMode Echo Pins to Input
   pinMode(EchoSensor1,INPUT);
   pinMode(EchoSensor2,INPUT);
   pinMode(EchoSensor3,INPUT);
@@ -429,10 +428,10 @@ void loop() {
   lcd.print("Tanknummer");
   lcd.setCursor(0,1);
   lcd.print("eingeben:");
-   
+
   char Key = customKeypad.getKey();
-  
+
   if (Key){
     keypadtolcd(Key);
-  } 
+  }
 }
